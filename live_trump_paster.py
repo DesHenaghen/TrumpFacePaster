@@ -36,9 +36,22 @@ def read_input(cap):
 
         print("Found {0} faces!".format(len(faces)))
 
-        # Draw a rectangle around the faces
-        for (x, y, w, h) in faces:
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+        # Draw a Donald Trump face over the faces
+        for (ox, oy, w, h) in faces:
+            # Load a random Donald Trump face
+            face_image = cv2.imread("donald_face-1.png", -1)
+            # Resize the face to fit the face detected
+            face = cv2.resize(face_image, (w, h), interpolation=cv2.INTER_CUBIC)
+
+            # Draw the Donald face over the detected face
+            for c in range(0, 3):
+                height = face.shape[0]
+                width = face.shape[1]
+                alpha = face[:, :, 3] / 255.0
+                color = face[:, :, c] * (alpha)
+                beta = frame[oy:oy + height, ox:ox + width, c] * (1.0 - alpha)
+
+                frame[oy:oy + height, ox:ox + width, c] = color + beta
 
         # Display the resulting frame
         cv2.imshow('frame', frame)
@@ -49,6 +62,6 @@ def read_input(cap):
     cap.release()
     cv2.destroyAllWindows()
 
-
+# Main Method
 if __name__ == "__main__":
     open_camera()
