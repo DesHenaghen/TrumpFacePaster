@@ -1,2 +1,12 @@
-# TrumpFacePaster
-Pastes images of Donald Trump over the faces of people in images provided to it.
+Run the code like this:
+
+*python face_detect.py abba.png haarcascade_frontalface_default.xml*
+
+If you want to understand how the code works, the details are here:
+
+https://realpython.com/blog/python/face-recognition-with-python/
+
+
+Update: Now supports OpenCV3. This change has been made by furetosan ( https://github.com/furetosan) and tested on Linux.
+
+To run the OpenCV3 version, run facedetect_cv3.py.
